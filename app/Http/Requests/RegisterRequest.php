@@ -30,11 +30,4 @@ class RegisterRequest extends FormRequest
             'password' => ['required', 'max:100'],
         ];
     }
-
-    public function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException(response()->json([
-            'message' => $validator->errors()
-        ], 400));
-    }
 }
