@@ -6,8 +6,6 @@ use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Hash;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Throwable;
 
 class AuthController extends Controller
 {
@@ -21,7 +19,7 @@ class AuthController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'Success register account.',
+            'message' => 'Register account successfully.',
             'token' => $user->createToken($user['username'])->plainTextToken,
             'data' => $user,
         ], 200);
