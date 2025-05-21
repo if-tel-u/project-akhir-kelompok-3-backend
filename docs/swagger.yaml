@@ -8,149 +8,149 @@ servers:
 
 tags:
   - name: Authentications
-    description: Operations realted to authentications
+    description: Operations related to user authentication
   - name: Users
-    description: Operations related to users
+    description: Operations related to user management and profiles
   - name: Items
-    description: Operations related to items
+    description: CRUD operations for items being sold on the platform
   - name: Wishlist
-    description: Wishlist management
+    description: Operations to manage user wishlists
 
 paths:
   /register:
     post:
-      summary: summary-lorem
+      summary: Register a new user account
       tags:
         - Authentications
       responses:
         '200':
-          description: lorem ipsum
+          description: Returns a success message and user data upon successful registration
 
   /login:
     post:
-      summary: summary-lorem
+      summary: Log in a user
       tags:
         - Authentications
       responses:
         '200':
-          description: description-lorem
+          description: Returns a token and user data upon successful login
 
   /logout:
     delete:
-      summary: summary-lorem
+      summary: Log out the current user
       tags:
         - Authentications
       responses:
         '200':
-          description: description-lorem
+          description: Logs out the authenticated user and invalidates the session/token
 
   /user:
     get:
-      summary: summary-lorem
+      summary: Get the currently authenticated user's profile
       tags:
         - Users
       responses:
         '200':
-          description: description-lorem
+          description: Returns the profile details of the logged-in user
 
     put:
-      summary: summary-lorem
+      summary: Update the authenticated user's profile
       tags:
         - Users
       responses:
         '200':
-          description: description-lorem
+          description: Updates and returns the user's updated profile data
 
     delete:
-      summary: summary-lorem
+      summary: Delete the currently authenticated user
       tags:
         - Users
       responses:
         '200':
-          description: description-lorem
+          description: Permanently deletes the user account from the system
 
   /users/{id}:
     get:
-      summary: summary-lorem
+      summary: Get public profile of a user by ID
       tags:
         - Users
       responses:
         '200':
-          description: description-lorem
+          description: Returns the public profile information of a user
 
   /user/items:
     get:
-      summary: summary-lorem
+      summary: Get items listed by the currently authenticated user
       tags:
         - Items
       responses:
         '200':
-          description: description-lorem
+          description: Returns a list of items uploaded by the logged-in user
 
   /items:
     get:
-      summary: summary-lorem
+      summary: Get all listed items
       tags:
         - Items
       responses:
         '200':
-          description: description-lorem
+          description: Returns a list of all items currently available on the marketplace
 
     post:
-      summary: summary-lorem
+      summary: Create a new item listing
       tags:
         - Items
       responses:
         '200':
-          description: description-lorem
+          description: Adds a new item to the marketplace and returns the created item
 
   /items/{id}:
     get:
-      summary: summary-lorem
+      summary: Get item details by ID
       tags:
         - Items
       responses:
         '200':
-          description: description-lorem
+          description: Returns detailed information of a specific item
 
     put:
-      summary: summary-lorem
+      summary: Update an existing item by ID
       tags:
         - Items
       responses:
         '200':
-          description: description-lorem
+          description: Updates and returns the updated item details
 
     delete:
-      summary: summary-lorem
+      summary: Delete an item by ID
       tags:
         - Items
       responses:
         '200':
-          description: description-lorem
+          description: Deletes the specified item from the marketplace
 
   /wishlists:
     get:
-      summary: summary-lorem
+      summary: Get wishlist items of the current user
       tags:
         - Wishlist
       responses:
         '200':
-          description: description-lorem
+          description: Returns a list of items that the user has added to their wishlist
 
     post:
-      summary: summary-lorem
+      summary: Add an item to the wishlist
       tags:
         - Wishlist
       responses:
         '200':
-          description: description-lorem
+          description: Adds a new item to the user's wishlist
 
   /user/items/{itemId}:
     delete:
-      summary: summary-lorem
+      summary: Remove an item from the wishlist
       tags:
         - Wishlist
       responses:
         '200':
-          description: description-lorem
+          description: Removes the specified item from the user's wishlist
