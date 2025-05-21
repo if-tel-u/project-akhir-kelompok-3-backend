@@ -1,0 +1,156 @@
+openapi: 3.0.3
+info:
+  title: JualIn API
+  version: 1.0.0
+servers:
+  - url: http://localhost/api
+    description: Local development server
+
+tags:
+  - name: Authentications
+    description: Operations realted to authentications
+  - name: Users
+    description: Operations related to users
+  - name: Items
+    description: Operations related to items
+  - name: Wishlist
+    description: Wishlist management
+
+paths:
+  /register:
+    post:
+      summary: summary-lorem
+      tags:
+        - Authentications
+      responses:
+        '200':
+          description: lorem ipsum
+
+  /login:
+    post:
+      summary: summary-lorem
+      tags:
+        - Authentications
+      responses:
+        '200':
+          description: description-lorem
+
+  /logout:
+    delete:
+      summary: summary-lorem
+      tags:
+        - Authentications
+      responses:
+        '200':
+          description: description-lorem
+
+  /user:
+    get:
+      summary: summary-lorem
+      tags:
+        - Users
+      responses:
+        '200':
+          description: description-lorem
+
+    put:
+      summary: summary-lorem
+      tags:
+        - Users
+      responses:
+        '200':
+          description: description-lorem
+
+    delete:
+      summary: summary-lorem
+      tags:
+        - Users
+      responses:
+        '200':
+          description: description-lorem
+
+  /users/{id}:
+    get:
+      summary: summary-lorem
+      tags:
+        - Users
+      responses:
+        '200':
+          description: description-lorem
+
+  /user/items:
+    get:
+      summary: summary-lorem
+      tags:
+        - Items
+      responses:
+        '200':
+          description: description-lorem
+
+  /items:
+    get:
+      summary: summary-lorem
+      tags:
+        - Items
+      responses:
+        '200':
+          description: description-lorem
+
+    post:
+      summary: summary-lorem
+      tags:
+        - Items
+      responses:
+        '200':
+          description: description-lorem
+
+  /items/{id}:
+    get:
+      summary: summary-lorem
+      tags:
+        - Items
+      responses:
+        '200':
+          description: description-lorem
+
+    put:
+      summary: summary-lorem
+      tags:
+        - Items
+      responses:
+        '200':
+          description: description-lorem
+
+    delete:
+      summary: summary-lorem
+      tags:
+        - Items
+      responses:
+        '200':
+          description: description-lorem
+
+  /wishlists:
+    get:
+      summary: summary-lorem
+      tags:
+        - Wishlist
+      responses:
+        '200':
+          description: description-lorem
+
+    post:
+      summary: summary-lorem
+      tags:
+        - Wishlist
+      responses:
+        '200':
+          description: description-lorem
+
+  /wishlists/{id}:
+    delete:
+      summary: summary-lorem
+      tags:
+        - Wishlist
+      responses:
+        '200':
+          description: description-lorem
