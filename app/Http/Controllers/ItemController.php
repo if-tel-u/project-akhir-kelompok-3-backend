@@ -63,6 +63,27 @@ class ItemController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        
     }
+
+    public function userItems()
+    {
+        $user = auth()->user();
+
+        if (!$user) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Unauthenticated user'
+            ], 401);
+        }
+
+        $items = $user->items;
+
+        return response()->json([
+            'status' => true,
+            'message' => $items->isEmpty() ? 'No items found' : 'User\'s items successfully retrieved',
+            'data' => $items
+        ], 200);
+    }
+
 }
