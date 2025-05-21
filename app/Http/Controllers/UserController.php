@@ -52,7 +52,7 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // TODO: implement update user POST method
     }
 
     /**
