@@ -34,7 +34,20 @@ class ItemController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $item = Item::find($id);
+
+        if (!$item) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Item not found'
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Item successfully retrieved.',
+            'data' => $item,
+        ], 200);
     }
 
     /**
