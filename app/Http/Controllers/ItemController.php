@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ItemController extends Controller
 {
@@ -63,7 +64,28 @@ class ItemController extends Controller
      */
     public function destroy(string $id)
     {
+        $item = Item::find($id);
+
+        if (!$item) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Item not found'
+            ], 404);
+        }
         
+        if ($item->user_id !== auth()->user()->id) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Unauthorized to delete this item'
+            ], 403);
+        }
+
+        $item->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Item successfully deleted'
+        ], 200);
     }
 
     public function userItems()
