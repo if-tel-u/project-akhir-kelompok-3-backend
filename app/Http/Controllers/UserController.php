@@ -59,5 +59,20 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json([
+                'status' => false,
+                'message' => "User with id = {$id} not found.",
+            ], 404);
+        }
+
+        $user->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => "User with id = {$id} has been deleted.",
+        ], 200);
     }
 }
