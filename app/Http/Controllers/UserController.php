@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -27,7 +28,21 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user = User::get()->where("id", $id)->first();
+
+        if (empty($user)) {
+            return response()->json([
+                'status' => false,
+                'message' => "Username with id = {$id} not found.",
+            ], 200);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'User successfully retrieved.',
+            // 'token' => $user->createToken($user->username)->plainTextToken,
+            'data' => $user,
+        ], 200);
     }
 
     /**
