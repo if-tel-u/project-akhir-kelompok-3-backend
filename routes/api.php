@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,4 +15,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('user', [UserController::class, 'update']);
     Route::delete('user', [UserController::class, 'destroy']);
     Route::get('users/{id}', [UserController::class, 'show']);
+
+    Route::get('items', [ItemController::class, 'index']);
+    Route::post('items', [ItemController::class, 'store']);
+    Route::get('items/{id}', [ItemController::class, 'show']);
+    Route::put('items/{id}', [ItemController::class, 'update']);
+    Route::delete('items/{id}', [ItemController::class, 'destroy']);
+    Route::get('user/items', [ItemController::class, 'userItems']);
 });
