@@ -41,7 +41,6 @@ class UserController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'User successfully retrieved.',
-            // 'token' => $user->createToken($user->username)->plainTextToken,
             'data' => $user,
         ], 200);
     }

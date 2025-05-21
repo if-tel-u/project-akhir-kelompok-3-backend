@@ -10,7 +10,7 @@ Route::post('login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::delete('logout', [AuthController::class, 'logout']);
 
+    Route::put('user', [UserController::class, 'update']);
     Route::get('users/{id}', [UserController::class, 'show']);
-    Route::put('users/{id}', [UserController::class, 'update']);
     Route::delete('users/{id}', [UserController::class, 'destroy']);
 });
