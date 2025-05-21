@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Throwable;
 
 class UserController extends Controller
 {
@@ -13,7 +14,20 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $user = auth()->user();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Successfully retrieved current user data.',
+                'data' => $user,
+            ], 200);
+        } catch (Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
@@ -59,10 +73,6 @@ class UserController extends Controller
     public function destroy(): JsonResponse
     {
         $user = auth()->user();
-
-        // TODO: check if user still logged in/bearer is right
-
-        $user = User::find($user->id);
 
         if (!$user) {
             return response()->json([
