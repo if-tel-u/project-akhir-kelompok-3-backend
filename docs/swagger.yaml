@@ -146,7 +146,7 @@ paths:
         '200':
           description: description-lorem
 
-  /wishlists/{id}:
+  /user/items/{itemId}:
     delete:
       summary: summary-lorem
       tags:
