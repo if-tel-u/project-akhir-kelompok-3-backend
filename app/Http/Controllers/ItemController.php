@@ -17,7 +17,7 @@ class ItemController extends Controller
         return response()->json([
             'status' =>true,
             'message'=> 'items successfully retrieved',
-            'data'=> $items
+            'data'=> $items,
         ],200);
     }
 
@@ -39,7 +39,7 @@ class ItemController extends Controller
         if (!$item) {
             return response()->json([
                 'status' => false,
-                'message' => 'Item not found'
+                'message' => 'Item not found.',
             ], 404);
         }
 
@@ -68,14 +68,14 @@ class ItemController extends Controller
         if (!$item) {
             return response()->json([
                 'status' => false,
-                'message' => 'Item not found'
+                'message' => 'Item not found',
             ], 404);
         }
 
         if ($item->user_id !== auth()->user()->id) {
             return response()->json([
                 'status' => false,
-                'message' => 'Unauthorized to delete this item'
+                'message' => 'Unauthorized to delete this item.',
             ], 403);
         }
 
@@ -83,7 +83,7 @@ class ItemController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'Item successfully deleted'
+            'message' => 'Item successfully deleted.',
         ], 200);
     }
 
@@ -94,7 +94,7 @@ class ItemController extends Controller
         if (!$user) {
             return response()->json([
                 'status' => false,
-                'message' => 'Unauthenticated user'
+                'message' => 'Unauthenticated user.'
             ], 401);
         }
 
@@ -103,7 +103,7 @@ class ItemController extends Controller
         return response()->json([
             'status' => true,
             'message' => $items->isEmpty() ? 'No items found' : 'User\'s items successfully retrieved',
-            'data' => $items
+            'data' => $items,
         ], 200);
     }
 
