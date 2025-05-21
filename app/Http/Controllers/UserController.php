@@ -56,14 +56,18 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id): JsonResponse
+    public function destroy(): JsonResponse
     {
-        $user = User::find($id);
+        $user = auth()->user();
+
+        // TODO: check if user still logged in/bearer is right
+
+        $user = User::find($user->id);
 
         if (!$user) {
             return response()->json([
                 'status' => false,
-                'message' => "User with id = {$id} not found.",
+                'message' => "User with id = {$user->id} not found.",
             ], 404);
         }
 
@@ -71,7 +75,7 @@ class UserController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => "User with id = {$id} has been deleted.",
+            'message' => "User with id = {$user->id} has been deleted.",
         ], 200);
     }
 }
