@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class ItemController extends Controller
 {
@@ -72,7 +71,7 @@ class ItemController extends Controller
                 'message' => 'Item not found'
             ], 404);
         }
-        
+
         if ($item->user_id !== auth()->user()->id) {
             return response()->json([
                 'status' => false,
