@@ -29,7 +29,6 @@ class UserController extends Controller
      */
     public function show(string $id): JsonResponse
     {
-        $user = User::get()->where("id", $id)->first();
         $user = User::find($id);
 
         if (empty($user)) {
