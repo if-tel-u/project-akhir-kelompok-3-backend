@@ -28,9 +28,9 @@ class User extends Authenticatable
         return $this->hasMany(Item::class);
     }
 
-    public function wishlist()
+    public function wishlists()
     {
-        return $this->belongsToMany(Item::class, 'wishlists');
+        return $this->hasMany(Wishlist::class);
     }
 
     public function getAuthIdentifierName()
