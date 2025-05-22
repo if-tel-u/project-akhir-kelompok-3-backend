@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreWishlistRequest;
+use App\Models\Item;
 use Illuminate\Http\Request;
 use Throwable;
 
@@ -32,9 +34,42 @@ class WishlistController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreWishlistRequest $request)
     {
-        // TODO: Implement store wishlist method
+        try {
+            $user = auth()->user();
+            $itemId = $request->validated()['item_id'];
+            $item = Item::find($itemId);
+
+            if (!$item) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Item not found.',
+                ], 404);
+            }
+
+            $existingWishlist = $user->wishlists()->where('item_id', $itemId)->first();
+
+            if ($existingWishlist) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Item already exists in the wishlist.',
+                ], 400);
+            }
+
+            $wishlist = $user->wishlists()->create(['item_id' => $itemId]);
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Item successfully added to the wishlist.',
+                'data' => $wishlist,
+            ], 201);
+        } catch (Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**
