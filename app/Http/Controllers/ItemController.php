@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreItemRequest;
 use App\Models\Item;
 use Illuminate\Http\Request;
+use Throwable;
 
 class ItemController extends Controller
 {
@@ -24,9 +26,24 @@ class ItemController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreItemRequest $request)
     {
-        // TODO: Implement store item method
+        try {
+            $data = $request->validated();
+            $data['user_id'] = auth()->user()->id;
+            $item = Item::create($data);
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Item successfully created.',
+                'data' => $item,
+            ], 201);
+        } catch (Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**
