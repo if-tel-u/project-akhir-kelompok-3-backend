@@ -147,7 +147,7 @@ paths:
         '200':
           description: Adds a new item to the user's wishlist
 
-  /user/wishlists/{itemId}:
+  /wishlists/items/{itemId}:
     delete:
       summary: Remove an item from the wishlist
       tags:
