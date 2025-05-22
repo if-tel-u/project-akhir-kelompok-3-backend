@@ -50,7 +50,7 @@ class UserController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => "Username with id = {$id} not found.",
-            ], 200);
+            ], 404);
         }
 
         return response()->json([
