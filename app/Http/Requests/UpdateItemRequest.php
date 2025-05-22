@@ -11,7 +11,7 @@ class UpdateItemRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class UpdateItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // TODO: Implement item request validation rules
+            'name' => 'sometimes|string|max:255',
+            'description' => 'sometimes|string|max:1000',
+            'price' => 'sometimes|numeric|min:0',
+            'category' => 'sometimes|string|max:255',
+            'image_url' => 'sometimes|url|max:255',
         ];
     }
 }

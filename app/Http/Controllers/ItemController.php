@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreItemRequest;
+use App\Http\Requests\UpdateItemRequest;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use Throwable;
@@ -70,9 +71,39 @@ class ItemController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateItemRequest $request, string $id)
     {
-        //
+        try {
+            $data = $request->validated();
+            $item = Item::find($id);
+
+            if (!$item) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Item not found.',
+                ], 404);
+            }
+
+            if ($item->user_id !== auth()->user()->id) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Unauthorized to update this item.',
+                ], 403);
+            }
+
+            $item->update($data);
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Item successfully updated.',
+                'data' => $item,
+            ], 200);
+        } catch (Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**
