@@ -129,7 +129,7 @@ paths:
         '200':
           description: Deletes the specified item from the marketplace
 
-  /wishlists:
+  /user/wishlists:
     get:
       summary: Get wishlist items of the current user
       tags:
@@ -138,6 +138,7 @@ paths:
         '200':
           description: Returns a list of items that the user has added to their wishlist
 
+  /wishlists:
     post:
       summary: Add an item to the wishlist
       tags:
@@ -146,7 +147,7 @@ paths:
         '200':
           description: Adds a new item to the user's wishlist
 
-  /user/items/{itemId}:
+  /user/wishlists/{itemId}:
     delete:
       summary: Remove an item from the wishlist
       tags:
