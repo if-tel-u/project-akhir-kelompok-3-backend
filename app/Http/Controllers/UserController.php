@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -62,9 +63,24 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateUserRequest $request)
     {
-        // TODO: implement update user POST method
+        try {
+            $data = $request->validated();
+            $user = auth()->user();
+            $user->update($data);
+
+            return response()->json([
+                'status' => true,
+                'message' => 'User successfully updated.',
+                'data' => $user,
+            ], 200);
+        } catch (Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**
