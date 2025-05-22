@@ -58,6 +58,28 @@ class WishlistController extends Controller
      */
     public function destroy(string $itemId)
     {
-        // TODO: Implement destroy wishlist method
+        try {
+            $user = auth()->user();
+            $wishlist = $user->wishlists()->where('item_id', $itemId)->first();
+
+            if (!$wishlist) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Wishlist not found.',
+                ], 404);
+            }
+
+            $wishlist->delete();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Wishlist successfully deleted.',
+            ], 200);
+        } catch (Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 }
