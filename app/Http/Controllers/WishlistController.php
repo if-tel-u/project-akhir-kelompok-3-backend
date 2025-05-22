@@ -14,7 +14,7 @@ class WishlistController extends Controller
     {
         try {
             $user = auth()->user();
-            $wishlists = $user->wishlists()->with('item');
+            $wishlists = $user->wishlists;
 
             return response()->json([
                 'status' => true,
