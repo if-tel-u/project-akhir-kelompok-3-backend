@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Throwable;
 
 class WishlistController extends Controller
 {
@@ -11,7 +12,21 @@ class WishlistController extends Controller
      */
     public function index()
     {
-        // TODO: Implement index wishlist method
+        try {
+            $user = auth()->user();
+            $wishlists = $user->wishlists()->with('item');
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Wishlists successfully retrieved',
+                'data' => $wishlists,
+            ], 200);
+        } catch (Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**
