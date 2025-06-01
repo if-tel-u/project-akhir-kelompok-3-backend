@@ -7,7 +7,6 @@ use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Hash;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Throwable;
 
 class AuthController extends Controller
