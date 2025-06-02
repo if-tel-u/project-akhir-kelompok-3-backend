@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
 use App\Models\Item;
+use Request;
 use Throwable;
 
 class ItemController extends Controller
@@ -12,9 +13,13 @@ class ItemController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $items = Item::paginate();
+        $category = $request->query('category');
+        $items = Item::when(
+            $category,
+            fn($query) => $query->where('category', $category)
+        )->get();
 
         return response()->json([
             'status' =>true,
