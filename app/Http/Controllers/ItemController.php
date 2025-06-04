@@ -19,7 +19,7 @@ class ItemController extends Controller
         $items = Item::when(
             $category,
             fn($query) => $query->where('category', $category)
-        )->get();
+        )->orderBy('created_at', 'desc')->get();
 
         return response()->json([
             'status' =>true,
