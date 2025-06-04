@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
 use App\Models\Item;
-use Request;
+use Illuminate\Http\Client\Request;
 use Throwable;
 
 class ItemController extends Controller
