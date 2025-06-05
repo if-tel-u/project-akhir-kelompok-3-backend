@@ -16,10 +16,12 @@ class ItemController extends Controller
     public function index(Request $request)
     {
         $category = $request->query('category');
-        $items = Item::when(
-            $category,
-            fn($query) => $query->where('category', $category)
-        )->orderBy('created_at', 'desc')->get();
+        $search = $request->query('search');
+
+        $items = Item::when($category,fn($query) => $query->where('category', $category))
+                    ->when($search, fn($query)=>$query->where('name', 'like', '%'.$search.'%'))
+                    ->orderBy('created_at', 'desc')
+                    ->get();
 
         return response()->json([
             'status' =>true,
