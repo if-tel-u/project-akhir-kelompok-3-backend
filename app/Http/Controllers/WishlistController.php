@@ -17,11 +17,14 @@ class WishlistController extends Controller
         try {
             $user = auth()->user();
             $wishlists = $user->wishlists;
+            $item_ids = array_map(fn($map) =>  $map['item_id'], $wishlists->toArray());
 
             return response()->json([
                 'status' => true,
                 'message' => 'Wishlists successfully retrieved',
-                'data' => $wishlists,
+                'data' => [
+                    'item_ids' => $item_ids,
+                ],
             ], 200);
         } catch (Throwable $e) {
             return response()->json([
