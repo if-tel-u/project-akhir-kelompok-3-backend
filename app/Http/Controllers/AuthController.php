@@ -74,4 +74,28 @@ class AuthController extends Controller
             'message' => 'Logged out successfully.',
         ], 200);
     }
+
+    public static function checkToken()
+    {
+        try {
+            $isAuthenticated = auth()->check();
+
+            if ($isAuthenticated) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Token is valid',
+                ], 200);
+            }
+
+            return response()->json([
+                'message' => 'Token is invalid or expired',
+                'status' => false
+            ], 401);
+        } catch (Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
 }

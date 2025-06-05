@@ -44,6 +44,17 @@ paths:
         '200':
           description: Logs out the authenticated user and invalidates the session/token
 
+  /check-token:
+    get:
+      summary: Check the validity of the user's session/token
+      tags:
+        - Authentications
+      responses:
+        '200':
+          description: Returns the status of the session/token
+        '401':
+          description: Invalid or expired token, user is not authenticated
+
   /user:
     get:
       summary: Get the currently authenticated user's profile
