@@ -19,7 +19,7 @@ class ItemController extends Controller
         $search = $request->query('search');
 
         $items = Item::when($category,fn($query) => $query->where('category', $category))
-                    ->when($search, fn($query)=>$query->where('name', 'like', '%'.$search.'%'))
+                    ->when($search, fn($query) => $query->where('name', "%$search%"))
                     ->orderBy('created_at', 'desc')
                     ->get();
 
