@@ -15,10 +15,12 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
+        $currentUserId = auth()->user()->id;
         $category = $request->query('category');
         $search = $request->query('search');
 
-        $items = Item::when($category,fn($query) => $query->where('category', $category))
+        $items = Item::where('user_id', '!=', $currentUserId)
+                    ->when($category,fn($query) => $query->where('category', $category))
                     ->when($search, fn($query) => $query->where('name', "%$search%"))
                     ->orderBy('created_at', 'desc')
                     ->get();
