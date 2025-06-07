@@ -16,16 +16,13 @@ class WishlistController extends Controller
         {
             try {
                 $user = auth()->user();
-                // Ambil semua wishlist lengkap dengan relasi item-nya
                 $wishlists = $user->wishlists()->with('item')->get();
-
-                // Ambil data item-nya saja dari relasi wishlist
-                $items = $wishlists->pluck('item')->filter()->values(); // filter() untuk skip null (item yang mungkin sudah dihapus)
+                $items = $wishlists->pluck('item')->filter()->values();
 
                 return response()->json([
                     'status' => true,
                     'message' => 'Wishlist items successfully retrieved',
-                    'data' => $items, // langsung data item
+                    'data' => $items,
                 ], 200);
             } catch (Throwable $e) {
                 return response()->json([
