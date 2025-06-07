@@ -12,27 +12,25 @@ class WishlistController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        try {
-            $user = auth()->user();
-            $wishlists = $user->wishlists;
-            $item_ids = array_map(fn($map) =>  $map['item_id'], $wishlists->toArray());
+        public function index()
+        {
+            try {
+                $user = auth()->user();
+                $wishlists = $user->wishlists()->with('item')->get();
+                $items = $wishlists->pluck('item')->filter()->values();
 
-            return response()->json([
-                'status' => true,
-                'message' => 'Wishlists successfully retrieved',
-                'data' => [
-                    'item_ids' => $item_ids,
-                ],
-            ], 200);
-        } catch (Throwable $e) {
-            return response()->json([
-                'status' => false,
-                'message' => $e->getMessage(),
-            ], 500);
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Wishlist items successfully retrieved',
+                    'data' => $items,
+                ], 200);
+            } catch (Throwable $e) {
+                return response()->json([
+                    'status' => false,
+                    'message' => $e->getMessage(),
+                ], 500);
+            }
         }
-    }
 
     /**
      * Store a newly created resource in storage.
