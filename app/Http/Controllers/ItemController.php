@@ -21,9 +21,9 @@ class ItemController extends Controller
 
         $items = Item::where('user_id', '!=', $currentUserId)
                     ->when($category,fn($query) => $query->where('category', $category))
-                    ->when($search, fn($query) => $query->where('name', "%$search%"))
+                    ->when($search, fn($query) => $query->where('name', 'like', "%$search%"))
                     ->orderBy('created_at', 'desc')
-                    ->get();
+                    ->get();    
 
         return response()->json([
             'status' =>true,
