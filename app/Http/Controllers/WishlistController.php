@@ -60,6 +60,13 @@ class WishlistController extends Controller
                 ], 400);
             }
 
+            if ($item->user_id == $user->id) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Cannot add wishlist of its own item.',
+                ], 400);
+            }
+
             $wishlist = $user->wishlists()->create(['item_id' => $itemId]);
 
             return response()->json([
