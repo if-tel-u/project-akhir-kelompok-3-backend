@@ -12,27 +12,28 @@ class WishlistController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        try {
-            $user = auth()->user();
-            $wishlists = $user->wishlists;
-            $item_ids = array_map(fn($map) =>  $map['item_id'], $wishlists->toArray());
+        public function index()
+        {
+            try {
+                $user = auth()->user();
+                // Ambil semua wishlist lengkap dengan relasi item-nya
+                $wishlists = $user->wishlists()->with('item')->get();
 
-            return response()->json([
-                'status' => true,
-                'message' => 'Wishlists successfully retrieved',
-                'data' => [
-                    'item_ids' => $item_ids,
-                ],
-            ], 200);
-        } catch (Throwable $e) {
-            return response()->json([
-                'status' => false,
-                'message' => $e->getMessage(),
-            ], 500);
+                // Ambil data item-nya saja dari relasi wishlist
+                $items = $wishlists->pluck('item')->filter()->values(); // filter() untuk skip null (item yang mungkin sudah dihapus)
+
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Wishlist items successfully retrieved',
+                    'data' => $items, // langsung data item
+                ], 200);
+            } catch (Throwable $e) {
+                return response()->json([
+                    'status' => false,
+                    'message' => $e->getMessage(),
+                ], 500);
+            }
         }
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -57,6 +58,13 @@ class WishlistController extends Controller
                 return response()->json([
                     'status' => false,
                     'message' => 'Item already exists in the wishlist.',
+                ], 400);
+            }
+
+            if ($item->user_id == $user->id) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Cannot add wishlist of its own item.',
                 ], 400);
             }
 
