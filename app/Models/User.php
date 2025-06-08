@@ -34,6 +34,11 @@ class User extends Authenticatable
         return $this->hasMany(Wishlist::class);
     }
 
+    public function pendingPurchases()
+    {
+        return $this->hasMany(PendingPurchases::class);
+    }
+
     public function getAuthIdentifierName()
     {
         return 'username';
