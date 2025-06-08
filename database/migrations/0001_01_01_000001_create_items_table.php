@@ -13,7 +13,7 @@ class CreateItemsTable extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->decimal('price', 15, 2);
-            $table->enum('status', ['listed', 'unlisted'])->default('listed');
+            $table->enum('status', ['listed', 'unlisted', 'pending'])->default('listed');
             $table->string('category')->nullable();
             $table->string('image_url')->nullable();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
