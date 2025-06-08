@@ -44,7 +44,7 @@ class ItemSeeder extends Seeder
         Item::create([
             'name' => 'Phone',
             'description' => 'Secondhand iPhone 11, still functional.',
-            'price' => 3_5000_000,
+            'price' => 3_500_000,
             'image_url' => 'https://cdnpro.eraspace.com/media/catalog/product/a/p/apple_iphone_11_white_new_1_1_1.jpg',
             'user_id' => 5,
         ]);
