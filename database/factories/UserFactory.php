@@ -21,6 +21,7 @@ class UserFactory extends Factory
             'username' => $this->faker->unique()->userName,
             'fullname' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
+            'contact_number' => $this->faker->unique()->phoneNumber,
             'password' => Hash::make($this->faker->password),
         ];
     }
