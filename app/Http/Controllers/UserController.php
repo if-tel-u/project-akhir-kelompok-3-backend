@@ -68,6 +68,40 @@ class UserController extends Controller
         try {
             $data = $request->validated();
             $user = auth()->user();
+
+            $isUsernameTaken = User::where('username', $data['username'])
+                ->where('id', '!=', $user->id)
+                ->exists();
+
+            $isEmailTaken = User::where('email', $data['email'])
+                ->where('id', '!=', $user->id)
+                ->exists();
+
+            $isContactNumberTaken = User::where('contact_number', $data['contact_number'])
+                ->where('id', '!=', $user->id)
+                ->exists();
+
+            if ($isUsernameTaken) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Username is already taken by another user.',
+                ], 409);
+            }
+
+            if ($isEmailTaken) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Email is already taken by another user.',
+                ], 409);
+            }
+
+            if ($isContactNumberTaken) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Contact number is already taken by another user.',
+                ], 409);
+            }
+
             $user->update($data);
 
             return response()->json([
@@ -75,6 +109,7 @@ class UserController extends Controller
                 'message' => 'User successfully updated.',
                 'data' => $user,
             ], 200);
+
         } catch (Throwable $e) {
             return response()->json([
                 'status' => false,

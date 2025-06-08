@@ -22,11 +22,10 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username' => ['required', 'string', 'max:255', 'unique:users,username,' . auth()->id()],
+            'username' => ['required', 'string', 'max:255'],
             'fullname' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . auth()->id()],
+            'email' => ['required', 'string', 'email', 'max:255'],
             'contact_number' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }
 }
