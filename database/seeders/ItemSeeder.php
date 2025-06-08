@@ -48,7 +48,5 @@ class ItemSeeder extends Seeder
             'image_url' => 'https://cdnpro.eraspace.com/media/catalog/product/a/p/apple_iphone_11_white_new_1_1_1.jpg',
             'user_id' => 5,
         ]);
-
-        Item::factory()->count(300)->create();
     }
 }
