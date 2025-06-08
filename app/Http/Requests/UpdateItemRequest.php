@@ -26,6 +26,7 @@ class UpdateItemRequest extends FormRequest
             'description' => 'sometimes|string|max:1000',
             'price' => 'sometimes|numeric|min:0',
             'category' => 'sometimes|string|max:255',
+            'status' => 'sometimes|string|max:255',
             'image_url' => 'sometimes|url|max:255',
         ];
     }
