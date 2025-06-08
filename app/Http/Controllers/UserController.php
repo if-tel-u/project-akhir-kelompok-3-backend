@@ -44,7 +44,7 @@ class UserController extends Controller
      */
     public function show(string $id): JsonResponse
     {
-        $user = User::find($id)->only(['username', 'fullname']);
+        $user = User::find($id)->only(['username', 'fullname', 'contact_number']);
 
         if (empty($user)) {
             return response()->json([
