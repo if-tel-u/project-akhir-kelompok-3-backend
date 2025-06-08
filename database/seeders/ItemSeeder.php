@@ -13,6 +13,7 @@ class ItemSeeder extends Seeder
             'name' => 'Laptop',
             'description' => 'Used laptop in good condition.',
             'price' => 5_000_000,
+            'category' => 'electronics',
             'image_url' => 'https://s.alicdn.com/@sc04/kf/H50cce48c6ac843bfa9015b338555c461d.jpg_300x300.jpg',
             'user_id' => 1,
         ]);
@@ -21,6 +22,7 @@ class ItemSeeder extends Seeder
             'name' => 'Watch',
             'description' => 'Stylish analog wristwatch.',
             'price' => 250_000,
+            'category' => 'fashion',
             'image_url' => 'https://img.joomcdn.net/c8afef2d0065c3d242dc1023d0aca2dfd4ce3c6b_original.jpeg',
             'user_id' => 2,
         ]);
@@ -37,6 +39,7 @@ class ItemSeeder extends Seeder
             'name' => 'Keyboard',
             'description' => 'Mechanical gaming keyboard.',
             'price' => 450_000,
+            'category' => 'electronics',
             'image_url' => 'https://www.softcom.co.id/wp-content/uploads/2021/02/Keyboard-Asus-ROG-Strix-Scope-TKL-Deluxe-1.jpg',
             'user_id' => 4,
         ]);
@@ -45,6 +48,7 @@ class ItemSeeder extends Seeder
             'name' => 'Phone',
             'description' => 'Secondhand iPhone 11, still functional.',
             'price' => 3_500_000,
+            'category' => 'electronics',
             'image_url' => 'https://cdnpro.eraspace.com/media/catalog/product/a/p/apple_iphone_11_white_new_1_1_1.jpg',
             'user_id' => 5,
         ]);
