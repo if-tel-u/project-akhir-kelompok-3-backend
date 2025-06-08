@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
 use App\Models\Item;
+use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Throwable;
 
@@ -18,19 +20,41 @@ class ItemController extends Controller
         $currentUserId = auth()->user()->id;
         $category = $request->query('category');
         $search = $request->query('search');
+        $username = $request->query('username');
 
-        $items = Item::where('user_id', '!=', $currentUserId)
+        try {
+
+        if ($username) {
+            $searchedUser = User::where('username', $username)->first();
+
+            if (!$searchedUser) {
+                throw new Exception("User with username $username not found.");
+            }
+
+            $items = $searchedUser->items;
+        } else {
+            $items = Item::where('user_id', '!=', $currentUserId)
                     ->where('status', 'listed')
                     ->when($category,fn($query) => $query->where('category', $category))
                     ->when($search, fn($query) => $query->where('name', 'like', "%$search%"))
                     ->orderBy('created_at', 'desc')
                     ->get();
+        }
 
         return response()->json([
             'status' =>true,
             'message'=> 'items successfully retrieved',
             'data'=> $items,
         ],200);
+        } catch (Throwable $e) {
+            return response()->json(
+                [
+                    'status' => false,
+                    'message' => $e->getMessage()
+                ],
+                404,
+            );
+        }
     }
 
     /**
