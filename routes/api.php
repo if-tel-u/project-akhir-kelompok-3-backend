@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\PendingPurchasesController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
@@ -29,4 +30,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user/wishlists', [WishlistController::class, 'index']);
     Route::post('/wishlists', [WishlistController::class, 'store']);
     Route::delete('/wishlists/items/{itemId}', [WishlistController::class, 'destroy']);
+
+    Route::get('/user/pending-purchases', [PendingPurchasesController::class, 'index']);
+    Route::post('/pending-purchases', [PendingPurchasesController::class, 'store']);
+    Route::delete('/pending-purchases/items/{itemId}', [PendingPurchasesController::class, 'destroy']);
 });
