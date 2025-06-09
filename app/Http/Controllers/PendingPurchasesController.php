@@ -70,6 +70,9 @@ class PendingPurchasesController extends Controller
             $pendingPurchases = $user->pendingPurchases()
                     ->create(['item_id' => $itemId]);
 
+            $item->status = 'pending';
+            $item->save();
+
             return response()->json([
                 'status' => true,
                 'message' => 'Item successfully added to pending purchases.',
