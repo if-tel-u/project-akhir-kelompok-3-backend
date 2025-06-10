@@ -56,7 +56,7 @@ class PendingPurchasesController extends Controller
             if ($existingPendingPurchases) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Item already exists in pending purchases.',
+                    'message' => 'Item already exists in transactions.',
                 ], 400);
             }
 
@@ -64,6 +64,12 @@ class PendingPurchasesController extends Controller
                 return response()->json([
                     'status' => false,
                     'message' => 'Cannot add purchase of its own item.',
+                ], 400);
+            }
+            if ($item->status !== 'listed') {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Item is not available for purchase.',
                 ], 400);
             }
 
@@ -75,7 +81,7 @@ class PendingPurchasesController extends Controller
 
             return response()->json([
                 'status' => true,
-                'message' => 'Item successfully added to pending purchases.',
+                'message' => 'Item successfully added to transactions.',
                 'data' => $pendingPurchases,
             ], 201);
         } catch (Throwable $e) {
