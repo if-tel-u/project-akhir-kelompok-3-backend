@@ -8,6 +8,7 @@ use App\Models\Item;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Throwable;
 
 class ItemController extends Controller
@@ -114,7 +115,6 @@ class ItemController extends Controller
     public function update(UpdateItemRequest $request, string $id)
     {
         try {
-            $data = $request->validated();
             $item = Item::find($id);
 
             if (!$item) {
@@ -131,6 +131,19 @@ class ItemController extends Controller
                 ], 403);
             }
 
+            $data = $request->validated();
+
+            if ($request->hasFile('image')) {
+
+                if ($item->image_url) {
+                    Storage::disk('public')->delete($item->getRawOriginal('image_url'));
+                }
+                $image = $request->file('image');
+                $imagePath = $image->store('items', 'public');
+                $data['image_url'] = $imagePath;
+            } else  {
+                unset($data['image_url']);
+            }
             $item->update($data);
 
             return response()->json([
@@ -165,6 +178,10 @@ class ItemController extends Controller
                 'status' => false,
                 'message' => 'Unauthorized to delete this item.',
             ], 403);
+        }
+
+        if ($item->image_url) {
+            Storage::disk('public')->delete($item->getRawOriginal('image_url'));
         }
 
         $item->delete();
