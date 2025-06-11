@@ -65,6 +65,13 @@ class ItemController extends Controller
         try {
             $data = $request->validated();
             $data['user_id'] = auth()->user()->id;
+
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imagePath = $image->store('items', 'public'); // simpan di storage/app/public/items
+                $data['image_url'] = $imagePath;
+            }
+
             $item = Item::create($data);
 
             return response()->json([
