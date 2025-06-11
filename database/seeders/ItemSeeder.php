@@ -49,7 +49,7 @@ class ItemSeeder extends Seeder
             'description' => 'Secondhand iPhone 11, still functional.',
             'price' => 3_500_000,
             'category' => 'electronics',
-            'image_url' => 'items/iphone.pns',
+            'image_url' => 'items/iphone.jpg',
             'user_id' => 5,
         ]);
     }
