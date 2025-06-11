@@ -28,4 +28,9 @@ class Item extends Model
     {
         return $this->belongsToMany(User::class, 'wishlists');
     }
+
+    public function getImageUrlAttribute($value)
+    {
+        return $value ? asset('storage/' . $value) : null;
+    }
 }
